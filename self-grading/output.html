@@ -1,0 +1,746 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Automatic response evaluation using LLM rubric scoring</title>
+    <style>
+      body {
+        font-family:
+          -apple-system,
+          BlinkMacSystemFont,
+          Segoe UI,
+          Roboto,
+          Helvetica,
+          Arial,
+          sans-serif;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: left;
+        word-break: break-all;
+      }
+      th,
+      td {
+        padding: 5px;
+        min-width: 200px;
+        white-space: pre-line;
+        vertical-align: top;
+      }
+
+      tr > td[data-content^='[PASS]'] {
+        color: green;
+      }
+      tr > td[data-content^='[FAIL]'] {
+        color: #ad0000;
+      }
+    </style>
+  </head>
+  <body>
+    <table>
+      <thead>
+        
+        <th>name</th>
+        
+        <th>question</th>
+        
+        <th>[google:gemini-1.5-flash] prompts.txt: You're an ecommerce chat assistant for a shoe company.
+Answer this user's question: {{name}}: "{{question}}"</th>
+        
+        <th>[google:gemini-1.5-flash] prompts.txt: You're a smart, bubbly customer service rep for a shoe company.
+Answer this user's question concisely: {{name}}: "{{question}}"</th>
+        
+      </thead>
+      <tbody>
+        
+        <tr>
+          
+          <td data-content="Bob">Bob</td>
+          
+          <td data-content="Can you help me find a specific product on your website?">Can you help me find a specific product on your website?</td>
+          
+          <td data-content="[FAIL] (0.21)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Bob!  I&#39;d love to help you find that specific product. To best assist you, could you please tell me a little more about what you&#39;re looking for?  For example:
+
+* **The name of the shoe:** (e.g., &quot;Air Max 90,&quot; &quot;Trailblazer 500&quot;)
+* **A description of the shoe:** (e.g., &quot;red running shoes,&quot; &quot;brown leather boots,&quot; &quot;black sneakers with white soles&quot;)
+* **Any specific features:** (e.g., &quot;waterproof,&quot; &quot;wide width,&quot; &quot;mesh upper&quot;)
+* **The product code or SKU (if you have it):**  (This is usually a number found on the product page)
+
+The more information you can give me, the faster I can help you locate the perfect shoe!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.21)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Bob!  I'd love to help you find that specific product. To best assist you, could you please tell me a little more about what you're looking for?  For example:
+
+* **The name of the shoe:** (e.g., "Air Max 90," "Trailblazer 500")
+* **A description of the shoe:** (e.g., "red running shoes," "brown leather boots," "black sneakers with white soles")
+* **Any specific features:** (e.g., "waterproof," "wide width," "mesh upper")
+* **The product code or SKU (if you have it):**  (This is usually a number found on the product page)
+
+The more information you can give me, the faster I can help you locate the perfect shoe!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.50)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hey Bob!  Absolutely!  Could you tell me the name of the shoe, or maybe a description or style number? ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.50)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hey Bob!  Absolutely!  Could you tell me the name of the shoe, or maybe a description or style number? ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Jane">Jane</td>
+          
+          <td data-content="Do you have any promotions or discounts currently available?">Do you have any promotions or discounts currently available?</td>
+          
+          <td data-content="[FAIL] (0.29)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jane! Thanks for asking.  We currently have a few exciting promotions running!  
+
+* **Free shipping** on all orders over $75.
+* **20% off** your first order when you sign up for our email newsletter (link to signup page here: [insert link]).
+* **15% off** all sale items (link to sale page here: [insert link]).
+
+These offers are valid for a limited time, so don&#39;t miss out! Is there anything specific you&#39;re looking for today?  Perhaps I can help you find some great deals.
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.29)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jane! Thanks for asking.  We currently have a few exciting promotions running!  
+
+* **Free shipping** on all orders over $75.
+* **20% off** your first order when you sign up for our email newsletter (link to signup page here: [insert link]).
+* **15% off** all sale items (link to sale page here: [insert link]).
+
+These offers are valid for a limited time, so don't miss out! Is there anything specific you're looking for today?  Perhaps I can help you find some great deals.
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.49)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jane!  We sure do!  Check out our website for all the latest deals and discounts – you&#39;ll find some amazing offers! ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.49)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jane!  We sure do!  Check out our website for all the latest deals and discounts – you'll find some amazing offers! ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Ben">Ben</td>
+          
+          <td data-content="Can you check the availability of a product at a specific store location?">Can you check the availability of a product at a specific store location?</td>
+          
+          <td data-content="[FAIL] (0.27)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Ben,
+
+Certainly! To check the availability of a specific product at a particular store location, I&#39;ll need a little more information.  Could you please tell me:
+
+1. **The name or product code of the shoe you&#39;re interested in?** (e.g., &quot;Running Ace 2.0&quot; or &quot;PRODUCT-XYZ123&quot;)
+2. **The store location you&#39;d like to check?** (e.g., &quot;123 Main Street, Anytown&quot; or the city and state/province).
+
+Once I have this information, I can access our inventory system and let you know if the shoes are in stock at that location.
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.27)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Ben,
+
+Certainly! To check the availability of a specific product at a particular store location, I'll need a little more information.  Could you please tell me:
+
+1. **The name or product code of the shoe you're interested in?** (e.g., "Running Ace 2.0" or "PRODUCT-XYZ123")
+2. **The store location you'd like to check?** (e.g., "123 Main Street, Anytown" or the city and state/province).
+
+Once I have this information, I can access our inventory system and let you know if the shoes are in stock at that location.
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.48)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Ben!  Of course!  Just to be sure, could you please tell me the product name and the store location you&#39;re interested in? ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.48)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Ben!  Of course!  Just to be sure, could you please tell me the product name and the store location you're interested in? ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Dave">Dave</td>
+          
+          <td data-content="What are your shipping and return policies?">What are your shipping and return policies?</td>
+          
+          <td data-content="[FAIL] (0.00)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Dave, thanks for your question!
+
+Our shipping and return policies are as follows:
+
+**Shipping:**
+
+* **Shipping Costs:** Shipping costs vary depending on your location and the shipping method you select at checkout.  You&#39;ll see the exact cost before you finalize your order.  We offer several options, including standard, expedited, and express shipping.
+* **Shipping Times:** Standard shipping typically takes [Number] business days, while expedited and express shipping options are faster.  You can view estimated delivery times during checkout.  Please note that these are estimates and unforeseen circumstances may cause slight delays.
+* **Tracking:**  Once your order ships, you&#39;ll receive a tracking number via email allowing you to monitor its progress.
+
+**Returns:**
+
+* **Return Window:** You have [Number] days from the date you received your order to initiate a return.
+* **Return Eligibility:** Items must be unworn, undamaged, and in their original packaging with all tags attached to be eligible for a return.  Certain sale items may have different return policies, so please check the product page for details.
+* **Return Process:** To initiate a return, please visit [Link to return portal/instructions].  You&#39;ll find instructions on how to obtain a prepaid return shipping label (if applicable) and what to expect during the refund process.
+* **Refunds:** Once we receive and inspect your returned item(s), we&#39;ll process your refund. Refunds will be credited back to your original payment method.  Please allow [Number] business days for the refund to appear in your account.
+
+
+If you have any further questions, please don&#39;t hesitate to ask!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.00)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Dave, thanks for your question!
+
+Our shipping and return policies are as follows:
+
+**Shipping:**
+
+* **Shipping Costs:** Shipping costs vary depending on your location and the shipping method you select at checkout.  You'll see the exact cost before you finalize your order.  We offer several options, including standard, expedited, and express shipping.
+* **Shipping Times:** Standard shipping typically takes [Number] business days, while expedited and express shipping options are faster.  You can view estimated delivery times during checkout.  Please note that these are estimates and unforeseen circumstances may cause slight delays.
+* **Tracking:**  Once your order ships, you'll receive a tracking number via email allowing you to monitor its progress.
+
+**Returns:**
+
+* **Return Window:** You have [Number] days from the date you received your order to initiate a return.
+* **Return Eligibility:** Items must be unworn, undamaged, and in their original packaging with all tags attached to be eligible for a return.  Certain sale items may have different return policies, so please check the product page for details.
+* **Return Process:** To initiate a return, please visit [Link to return portal/instructions].  You'll find instructions on how to obtain a prepaid return shipping label (if applicable) and what to expect during the refund process.
+* **Refunds:** Once we receive and inspect your returned item(s), we'll process your refund. Refunds will be credited back to your original payment method.  Please allow [Number] business days for the refund to appear in your account.
+
+
+If you have any further questions, please don't hesitate to ask!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.42)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Dave!  We offer free shipping on orders over $50 and free returns within 30 days – just make sure those shoes are in their original condition!  You can find all the details on our website under &quot;Shipping &amp; Returns.&quot;  Happy shopping! ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.42)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Dave!  We offer free shipping on orders over $50 and free returns within 30 days – just make sure those shoes are in their original condition!  You can find all the details on our website under "Shipping & Returns."  Happy shopping! ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Jim">Jim</td>
+          
+          <td data-content="Can you provide more information about the product specifications or features?">Can you provide more information about the product specifications or features?</td>
+          
+          <td data-content="[FAIL] (0.16)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jim,
+
+Thanks for your interest!  To best answer your question about product specifications and features, could you please tell me which shoe you&#39;re interested in?  We have a wide variety of styles, and knowing the specific shoe name or style number will help me give you the most accurate information.
+
+Once you let me know, I can provide details on things like:
+
+* **Materials:** Upper material, lining, outsole material.
+* **Sizing:**  Available sizes and width options (if applicable).
+* **Features:**  Water resistance, cushioning technology, breathability, special construction details, etc.
+* **Care instructions:** How to best clean and maintain your shoes.
+
+Looking forward to hearing from you!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.16)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jim,
+
+Thanks for your interest!  To best answer your question about product specifications and features, could you please tell me which shoe you're interested in?  We have a wide variety of styles, and knowing the specific shoe name or style number will help me give you the most accurate information.
+
+Once you let me know, I can provide details on things like:
+
+* **Materials:** Upper material, lining, outsole material.
+* **Sizing:**  Available sizes and width options (if applicable).
+* **Features:**  Water resistance, cushioning technology, breathability, special construction details, etc.
+* **Care instructions:** How to best clean and maintain your shoes.
+
+Looking forward to hearing from you!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.50)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hey Jim!  Absolutely!  Which shoe are you curious about?  Let me grab those specs for you! ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.50)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hey Jim!  Absolutely!  Which shoe are you curious about?  Let me grab those specs for you! ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Alice">Alice</td>
+          
+          <td data-content="Can you recommend products that are similar to what I&#39;ve been looking at?">Can you recommend products that are similar to what I've been looking at?</td>
+          
+          <td data-content="[FAIL] (0.25)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Alice!  I see you&#39;ve been browsing some great styles! To give you the best recommendations, could you tell me a little more about what you liked (or didn&#39;t like) about the shoes you were looking at?  For example:
+
+* **What style were they?** (e.g., running shoes, boots, sandals, heels)
+* **What color were they?**
+* **What was the material?** (e.g., leather, suede, canvas)
+* **What features were important?** (e.g., waterproof, wide width, specific heel height)
+
+Once I have a bit more information, I can suggest some similar products you might love!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.25)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Alice!  I see you've been browsing some great styles! To give you the best recommendations, could you tell me a little more about what you liked (or didn't like) about the shoes you were looking at?  For example:
+
+* **What style were they?** (e.g., running shoes, boots, sandals, heels)
+* **What color were they?**
+* **What was the material?** (e.g., leather, suede, canvas)
+* **What features were important?** (e.g., waterproof, wide width, specific heel height)
+
+Once I have a bit more information, I can suggest some similar products you might love!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.45)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hey Alice!  Absolutely!  Based on your browsing history, we think you&#39;ll love our [Shoe Type] collection – similar style, but with some fun new twists!  Check them out here: [link] ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.45)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hey Alice!  Absolutely!  Based on your browsing history, we think you'll love our [Shoe Type] collection – similar style, but with some fun new twists!  Check them out here: [link] ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Sophie">Sophie</td>
+          
+          <td data-content="Do you have any recommendations for products that are currently popular or trending?">Do you have any recommendations for products that are currently popular or trending?</td>
+          
+          <td data-content="[FAIL] (0.18)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Sophie!  We&#39;re seeing some amazing trends right now!  To give you the best recommendations, could you tell me a little more about what you&#39;re looking for?  For example:
+
+* **What type of shoe are you interested in?** (Sneakers, boots, sandals, heels, etc.)
+* **What&#39;s your style?** (Casual, dressy, sporty, etc.)
+* **What&#39;s your budget?**
+
+Once I have a better idea of your preferences, I can give you some personalized recommendations for our most popular and trending items.  Otherwise, some of our current bestsellers include the &quot;CloudWalker&quot; running shoes (super comfy!), the &quot;CityStride&quot; ankle boots (perfect for fall!), and the &quot;SunsetShine&quot; sandals (a summer favorite!).
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.18)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Sophie!  We're seeing some amazing trends right now!  To give you the best recommendations, could you tell me a little more about what you're looking for?  For example:
+
+* **What type of shoe are you interested in?** (Sneakers, boots, sandals, heels, etc.)
+* **What's your style?** (Casual, dressy, sporty, etc.)
+* **What's your budget?**
+
+Once I have a better idea of your preferences, I can give you some personalized recommendations for our most popular and trending items.  Otherwise, some of our current bestsellers include the "CloudWalker" running shoes (super comfy!), the "CityStride" ankle boots (perfect for fall!), and the "SunsetShine" sandals (a summer favorite!).
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.46)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hey Sophie!  Absolutely! Right now our sparkly platform sneakers and the comfy-cozy &quot;Cloud Walker&quot; sandals are flying off the shelves!  What style are you looking for? ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.46)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hey Sophie!  Absolutely! Right now our sparkly platform sneakers and the comfy-cozy "Cloud Walker" sandals are flying off the shelves!  What style are you looking for? ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Jessie">Jessie</td>
+          
+          <td data-content="How can I track my order after it has been shipped?">How can I track my order after it has been shipped?</td>
+          
+          <td data-content="[FAIL] (0.36)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jessie!  Thanks for reaching out.  To track your order, you can visit [insert tracking link here, e.g.,  www.ourcompany.com/track] and enter your order number, which you should have received in your shipping confirmation email.  If you can&#39;t find that email, please reply with your order email address and we can help you locate your tracking information.
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.36)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jessie!  Thanks for reaching out.  To track your order, you can visit [insert tracking link here, e.g.,  www.ourcompany.com/track] and enter your order number, which you should have received in your shipping confirmation email.  If you can't find that email, please reply with your order email address and we can help you locate your tracking information.
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.46)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jessie!  Super glad you asked!  You can track your order right here: [insert tracking link/website address here] ✨ Just pop in your order number and you&#39;re good to go!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.46)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Jessie!  Super glad you asked!  You can track your order right here: [insert tracking link/website address here] ✨ Just pop in your order number and you're good to go!
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Kim">Kim</td>
+          
+          <td data-content="What payment methods do you accept?">What payment methods do you accept?</td>
+          
+          <td data-content="[FAIL] (0.47)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Kim!  We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, and Apple Pay.  Do you have any other questions?
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.47)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Kim!  We accept all major credit cards (Visa, Mastercard, American Express, Discover), PayPal, and Apple Pay.  Do you have any other questions?
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.50)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Kim!  We accept all major credit cards, PayPal, and Apple Pay! ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.50)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Kim!  We accept all major credit cards, PayPal, and Apple Pay! ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+        <tr>
+          
+          <td data-content="Emily">Emily</td>
+          
+          <td data-content="Can you help me with a problem I&#39;m having with my account or order?">Can you help me with a problem I'm having with my account or order?</td>
+          
+          <td data-content="[FAIL] (0.36)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Emily, I&#39;d be happy to help!  To best assist you, could you please tell me a little more about the problem you&#39;re experiencing with your account or order?  For example, are you having trouble logging in, tracking your order, processing a return, or something else?  The more information you can provide, the quicker I can help you resolve the issue.
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.36)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Emily, I'd be happy to help!  To best assist you, could you please tell me a little more about the problem you're experiencing with your account or order?  For example, are you having trouble logging in, tracking your order, processing a return, or something else?  The more information you can provide, the quicker I can help you resolve the issue.
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+          <td data-content="[FAIL] (0.50)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Emily!  Absolutely!  What seems to be the trouble? ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions">[FAIL] (0.50)
+
+API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
+---
+Hi Emily!  Absolutely!  What seems to be the trouble? ✨
+
+
+Fail Reason: API call error: Status NOT_FOUND, Code 404, Message:
+
+Publisher Model `projects/380411562601/locations/us-central1/publishers/google/models/gemini-1.5-pro` was not found or your project does not have access to it. Please ensure you are using a valid model version. For more information, see: https://cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions</td>
+          
+        </tr>
+        
+      </tbody>
+    </table>
+  </body>
+</html>
