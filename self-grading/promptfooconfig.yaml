@@ -9,12 +9,20 @@ providers:
       api_key: ${GOOGLE_API_KEY}
 
 defaultTest:
+  options:
+    provider:
+      text:
+        id: google:gemini-2.0-flash
+        config:
+          temperature: 0.7
+      embedding:
+        id: google:embedding:text-embedding-004  
   assert:
     - type: llm-rubric
       value: Do not mention that you are an AI or chat assistant
     - type: javascript
-      # Shorter is better
       value: Math.max(0, Math.min(1, 1 - (output.length - 100) / 900));
+
 tests:
   - vars:
       name: Bob
@@ -46,3 +54,4 @@ tests:
   - vars:
       name: Emily
       question: Can you help me with a problem I'm having with my account or order?
+    
